@@ -1,0 +1,40 @@
+node_modules/
+.wrangler/
+.env*
+.dev.vars*
+
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+pnpm-workspace.yaml
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+docs/
+
+scripts/
+
+test-results/
+
+tests/
+
+sql/
