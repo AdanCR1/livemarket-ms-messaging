@@ -41,7 +41,7 @@ async function database<T>(c: Context<Env>, path: string, body?: unknown, method
     headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json',
       Accept: method === 'POST' ? 'application/vnd.pgrst.object+json' : 'application/json',
       ...(method === 'PATCH' ? { Prefer: 'return=representation' } : {}) },
-    body: body === undefined ? undefined : JSON.stringify(body), redirect: 'error', signal: AbortSignal.timeout(5000),
+    body: body === undefined ? undefined : JSON.stringify(body), redirect: 'manual', signal: AbortSignal.timeout(5000),
   });
   const result = await response.json();
   if (response.ok) return result as T;
@@ -57,7 +57,7 @@ async function orderAccess(c: Context<Env>, id: string): Promise<{ order_id: str
   if (!c.env.MS4_URL || !c.env.MS5_INTERNAL_KEY) throw unavailable();
   const response = await fetch(`${c.env.MS4_URL.replace(/\/$/, '')}/api/ms5/order-access/${id}`, {
     headers: { Authorization: `Bearer ${actor.token}`, 'X-Internal-Key': c.env.MS5_INTERNAL_KEY },
-    signal: AbortSignal.timeout(4000), redirect: 'error',
+    signal: AbortSignal.timeout(4000), redirect: 'manual',
   });
   if (response.status === 404) throw hidden();
   if (!response.ok) throw unavailable();
